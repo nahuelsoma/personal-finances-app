@@ -9,16 +9,16 @@ import * as bcrypt from 'bcrypt';
 
 import { User } from '../entities/user.entity';
 import { CreateUserDto, UpdateUserDto } from '../dtos/user.dto';
-import { ItemsService } from '../../items/services/items.service';
-import { CategoriesService } from '../../items/services/categories.service';
+// import { Customer } from '../entities/customer.entity';
+// import { ProductsService } from './../../products/services/products.service';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User) private userRepo: Repository<User>,
+    // @InjectRepository(Customer) private customerRepo: Repository<Customer>,
+    // private productsService: ProductsService,
     private dataSource: DataSource,
-    private itemsService: ItemsService,
-    private categoriesService: CategoriesService,
   ) {}
 
   async findAll() {
@@ -33,9 +33,6 @@ export class UsersService {
     const user = await this.userRepo.findOne({
       where: {
         id,
-      },
-      relations: {
-        items: true,
       },
     });
     if (!user) {
@@ -54,31 +51,13 @@ export class UsersService {
     return user;
   }
 
-  async getItemsByUser(id: number) {
-    const user = this.findOne(id);
-    return {
-      date: new Date(),
-      user,
-      products: await this.itemsService.findAll(),
-    };
-  }
-
-  // async getCategoriesByUser(id: number) {
-  //   const user = this.findOne(id);
-  //   return {
-  //     date: new Date(),
-  //     user,
-  //     products: await this.categoriesService.findAll(),
-  //   };
-  // }
-
   async create(payload: CreateUserDto) {
     const existingUser = await this.userRepo.findOneBy({
       email: payload.email,
     });
     if (existingUser) {
       throw new NotAcceptableException(
-        `User '${existingUser.email}' already exist with id: ${existingUser.id}`,
+        `User '${existingUser.email}' already exist with id ${existingUser.id}`,
       );
     }
 
@@ -123,7 +102,7 @@ export class UsersService {
     return await this.findOne(id);
   }
 
-  async remove(id: number) {
+  async delete(id: number) {
     await this.findOne(id);
 
     const queryRunner = this.dataSource.createQueryRunner();

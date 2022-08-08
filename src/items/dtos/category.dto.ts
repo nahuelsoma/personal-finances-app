@@ -18,7 +18,7 @@ export class CreateCategoryDto {
   @ApiProperty()
   readonly description: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsNumber()
   @Min(0)
   @ApiProperty()
@@ -28,16 +28,6 @@ export class CreateCategoryDto {
   @IsString()
   @ApiProperty()
   readonly type: string;
-
-  @IsOptional()
-  @IsNumber()
-  @ApiProperty()
-  readonly items: number[];
-
-  @IsNotEmpty()
-  @IsNumber()
-  @ApiProperty()
-  readonly user: number;
 }
 
 export class UpdateCategoryDto extends PartialType(CreateCategoryDto) {}

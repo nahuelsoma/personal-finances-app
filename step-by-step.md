@@ -19,6 +19,7 @@ nest g mo database
 nest g mo auth
 nest g mo users
 nest g mo items
+nest g mo profile
 ```
 
 Create controllers
@@ -28,6 +29,7 @@ nest g co auth/controllers/auth --flat --no-spec
 nest g co users/controllers/users --flat --no-spec
 nest g co items/controllers/items --flat --no-spec
 nest g co items/controllers/categories --flat --no-spec
+nest g co profile/controllers/profile --flat --no-spec
 ```
 
 Create services
@@ -37,6 +39,7 @@ nest g s auth/services/auth --flat --no-spec
 nest g s users/services/users --flat --no-spec
 nest g s items/services/items --flat --no-spec
 nest g s items/services/categories --flat --no-spec
+nest g s profile/services/profile --flat --no-spec
 ```
 
 Create DTOs

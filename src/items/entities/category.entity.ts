@@ -28,7 +28,7 @@ export class Category {
   ammount: number;
 
   @Column({ type: 'enum', enum: Type, default: Type.EXPENSE })
-  format: Type;
+  type: string;
 
   @CreateDateColumn({
     name: 'create_at',

@@ -1,9 +1,9 @@
-import { IsString, IsNotEmpty, IsEmail, MinLength } from 'class-validator';
+import { IsString, IsNotEmpty, IsEmail, Length } from 'class-validator';
 import { PartialType, ApiProperty } from '@nestjs/swagger';
 
 export class CreateUserDto {
-  @IsString()
   @IsNotEmpty()
+  @IsString()
   @ApiProperty()
   readonly firstName: string;
 
@@ -12,24 +12,20 @@ export class CreateUserDto {
   @ApiProperty()
   readonly lastName: string;
 
-  @IsString()
   @IsNotEmpty()
-  @IsEmail({
-    message: 'A valid email adress is needed',
-  })
+  @IsEmail()
+  @IsString()
   @ApiProperty()
   readonly email: string;
 
-  @IsString()
   @IsNotEmpty()
-  @MinLength(8, {
-    message: 'Password must have at least 8 characters',
-  })
+  @IsString()
+  @Length(8)
   @ApiProperty()
   password: string;
 
-  @IsString()
   @IsNotEmpty()
+  @IsString()
   @ApiProperty()
   readonly role: string;
 }

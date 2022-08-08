@@ -8,19 +8,19 @@ import {
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
 
+import { Role } from '../models/role.model';
 import { Item } from '../../items/entities/item.entity';
 import { Category } from '../../items/entities/category.entity';
-import { Role } from '../../auth/models/roles.model';
 
 @Entity({ name: 'users' })
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'varchar', length: 255 })
+  @Column({ type: 'varchar', length: 255, unique: true })
   firstName: string;
 
-  @Column({ type: 'varchar', length: 255 })
+  @Column({ type: 'varchar', length: 255, unique: true })
   lastName: string;
 
   @Column({ type: 'varchar', length: 255, unique: true })
@@ -30,7 +30,7 @@ export class User {
   @Column({ type: 'varchar', length: 255 })
   password: string;
 
-  @Column({ type: 'varchar', length: 20, enum: Role, default: 'user' })
+  @Column({ type: 'enum', enum: Role, default: Role.USER })
   role: string;
 
   @CreateDateColumn({
@@ -50,6 +50,6 @@ export class User {
   @OneToMany(() => Item, (item) => item.user)
   items: Item[];
 
-  @OneToMany(() => Category, (category) => category.user)
+  @OneToMany(() => Category, (item) => item.user)
   categories: Category[];
 }

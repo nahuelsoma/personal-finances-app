@@ -29,7 +29,7 @@ export class Item {
   ammount: number;
 
   @Column({ type: 'enum', enum: Type, default: Type.EXPENSE })
-  format: Type;
+  type: string;
 
   @CreateDateColumn({
     name: 'created_at',

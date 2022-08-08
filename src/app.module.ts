@@ -9,6 +9,7 @@ import { UsersModule } from './users/users.module';
 import { ItemsModule } from './items/items.module';
 import { AuthModule } from './auth/auth.module';
 import { enviroments } from './enviroments';
+import { ProfileModule } from './profile/profile.module';
 import config from './config';
 
 @Module({
@@ -33,6 +34,7 @@ import config from './config';
     UsersModule,
     ItemsModule,
     AuthModule,
+    ProfileModule,
   ],
   controllers: [AppController],
   providers: [AppService],
