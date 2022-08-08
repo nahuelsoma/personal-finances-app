@@ -1,0 +1,33 @@
+version: '3.3'
+services:
+  postgres:
+    container_name: postgres-fin-app
+    image: postgres:latest
+    ports:
+    - '5432:5432'
+    volumes:
+    - /data/postgres:/data/postgres
+    env_file:
+    - .env
+    networks:
+    - postgres
+
+  pgadmin:
+    container_name: pgadmin-fin-app
+    depends_on:
+      - postgres
+    links:
+    - postgres:postgres
+    image: dpage/pgadmin4
+    ports:
+    - '8080:80'
+    volumes:
+    - /data/pgadmin:/root/.pgadmin
+    env_file:
+    - .env
+    networks:
+    - postgres
+ 
+networks:
+  postgres:
+    driver: bridge
