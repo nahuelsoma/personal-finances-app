@@ -18,25 +18,25 @@ import { CreateItemDto, UpdateItemDto } from '../dtos/item.dto';
 export class ItemsController {
   constructor(private itemsService: ItemsService) {}
 
-  @Get('all')
+  @Get('')
   @ApiOperation({ summary: 'Get all items' })
   getAll() {
     return this.itemsService.findAll();
   }
 
-  @Get('all/:id')
+  @Get('/:id')
   @ApiOperation({ summary: 'Get a single item by id' })
   get(@Param('id', ParseIntPipe) id: number) {
     return this.itemsService.findOne(id);
   }
 
-  // @Post()
-  // @ApiOperation({
-  //   summary: 'Create a new item',
-  // })
-  // create(@Body() payload: CreateItemDto) {
-  //   return this.itemsService.create(payload);
-  // }
+  @Post()
+  @ApiOperation({
+    summary: 'Create a new item',
+  })
+  create(@Body() payload: CreateItemDto) {
+    return this.itemsService.create(payload);
+  }
 
   @Put(':id')
   @ApiOperation({

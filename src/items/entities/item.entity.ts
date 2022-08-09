@@ -31,6 +31,9 @@ export class Item {
   @Column({ type: 'enum', enum: Type, default: Type.EXPENSE })
   type: string;
 
+  @Column({ type: 'timestamptz' })
+  date: Date;
+
   @CreateDateColumn({
     name: 'created_at',
     type: 'timestamptz',

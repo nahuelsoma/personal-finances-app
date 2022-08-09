@@ -2,6 +2,7 @@ import {
   Injectable,
   NotFoundException,
   NotAcceptableException,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, DataSource } from 'typeorm';
@@ -30,11 +31,7 @@ export class UsersService {
   }
 
   async findOne(id: number) {
-    const user = await this.userRepo.findOne({
-      where: {
-        id,
-      },
-    });
+    const user = await this.userRepo.findOneBy({ id });
     if (!user) {
       throw new NotFoundException(`User ${id} not found`);
     }
@@ -42,9 +39,7 @@ export class UsersService {
   }
 
   async findByEmail(email: string) {
-    const user = this.userRepo.findOne({
-      where: { email },
-    });
+    const user = this.userRepo.findOneBy({ email });
     if (!user) {
       throw new NotFoundException(`User ${email} not found`);
     }
@@ -57,7 +52,7 @@ export class UsersService {
     });
     if (existingUser) {
       throw new NotAcceptableException(
-        `User '${existingUser.email}' already exist with id ${existingUser.id}`,
+        `Email '${existingUser.email}' is alredy in use with id ${existingUser.id}`,
       );
     }
 
